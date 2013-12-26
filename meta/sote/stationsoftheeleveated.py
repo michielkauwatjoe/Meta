@@ -4,19 +4,19 @@
 # https://github.com/michielkauwatjoe/Meta
 
 from meta.giclee import Giclee
-from circus.voronoi import Voronoi
+from circus.toolbox.voronoi import Voronoi
 
 class StationsOfTheElevated(Giclee):
 
     def __init__(self):
-        super(Giclee, self).__init__(name='stations-of-the-elevated')
+        super(StationsOfTheElevated, self).__init__(name='stations-of-the-elevated')
         self.coordinates = self.loadCoordinates()
-        # Place random points around it.
+        # Place pattern points around it.
 
     def loadCoordinates(self):
         # Load SVG.
         pass
 
-def main():
+if __name__ == "__main__":
     sote = StationsOfTheElevated()
     sote.save()

@@ -3,7 +3,7 @@
 #
 # https://github.com/michielkauwatjoe/Circus
 
-class Sizes:
+class Sizes(object):
 
     ISO_216_A = {'A0': {'mm': (841, 1189)}, 'A1': {'mm': (594, 841)}, 'A2': {'mm': (420, 594)},
                  'A3': {'mm': (297, 420)}, 'A4': {'mm': (210, 297)}, 'A5': {'mm': (148, 210)},
