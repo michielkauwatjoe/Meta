@@ -4,8 +4,9 @@
 # https://github.com/michielkauwatjoe/Meta
 
 import Image
+from sizes import Sizes
 
-class Giclee:
+class Giclee(Sizes):
     u"""
     Base class for the Giclée print canvas.
     """
@@ -14,10 +15,12 @@ class Giclee:
         u"""
         Sets up a Python Imaging Library canvas.
         """
+        super(Giclee, self).__init__()
         self.canvas = Image()
+
 
     def grid(self, nx, ny, stroke='1px solid black'):
         u"""
-        Draws an auxiliary grid. Should be useful for for example taxi cab Voronoi tesselation.
+        Draws an auxiliary grid. Should be useful for for example taxi cab Voronoi tessellation.
         """
         pass
