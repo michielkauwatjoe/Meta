@@ -3,8 +3,9 @@
 #
 # https://github.com/michielkauwatjoe/Meta
 
-import Image
+#import Image
 #import ImageDraw
+import cairo
 from sizes import Sizes
 
 class Giclee(Sizes):
@@ -25,9 +26,11 @@ class Giclee(Sizes):
         self.background = background
         self.border_points = border_points
         super(Giclee, self).__init__()
-        self.size_mm = self.getMmSize(size)
-        self.canvas = Image.new(self.colorspace, self.size_mm, self.background)
-        self.draw = ImageDraw.Draw(self.canvas)
+        width, height = self.getMmSize(size)
+        #self.canvas = Image.new(self.colorspace, self.size_mm, self.background)
+        #self.draw = ImageDraw.Draw(self.canvas)
+        self.surface = cairo.ImageSurface (cairo.FORMAT_ARGB32, width, height)
+        self.ctx = cairo.Context (surface)
 
     def grid(self, nx, ny, stroke='1px solid black'):
         u"""
@@ -43,4 +46,4 @@ class Giclee(Sizes):
 
     def save(self):
         print 'Saving %s' % self.path
-        self.canvas.save(self.path)
+        surface.write_to_png(self.path)
