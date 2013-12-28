@@ -13,24 +13,35 @@ class Giclee(Sizes):
     Base class for the Giclée print canvas.
     """
 
-    def __init__(self, name='test', format='png', folder='/tmp', size='A2', colorspace='RGB', background='white',
+    def __init__(self, name='test', folder='/Users/michiel/Downloads/', size='A2', colorspace='RGB', background='white',
                  border_points=[]):
         u"""
         Sets up a Python Imaging Library canvas.
         """
         self.name = name
-        self.format = format
         self.folder = folder
-        self.path = self.folder + '/' + self.name + '.' + self.format
+        self.path = self.folder + '/' + self.name + '.svg'
         self.colorspace = colorspace
         self.background = background
         self.border_points = border_points
         super(Giclee, self).__init__()
-        width, height = self.getMmSize(size)
-        #self.canvas = Image.new(self.colorspace, self.size_mm, self.background)
-        #self.draw = ImageDraw.Draw(self.canvas)
-        self.surface = cairo.ImageSurface (cairo.FORMAT_ARGB32, width, height)
-        self.ctx = cairo.Context (surface)
+        self.width, self.height = self.getMmSize(size)
+        self.surface = cairo.SVGSurface(self.path, self.width, self.height)
+        self.context = cairo.Context(self.surface)
+        self.draw_border()
+        #self.test_gradient()
+
+    def gradient(self, rgba, rgbas):
+        gradient = cairo.LinearGradient(rgba[0], rgba[1], rgba[2], rgba[3])
+        for rgba in rgbas:
+            gradient.add_color_stop_rgba(rgba[0], rgba[1], rgba[2], rgba[3], rgba[4])
+        return gradient
+
+    def draw_border(self):
+        self.context.set_source_rgb(1, 0, 0)
+        self.context.rectangle(0, 0, self.width, self.height)
+        self.context.set_line_width(0.2)
+        self.context.stroke()
 
     def grid(self, nx, ny, stroke='1px solid black'):
         u"""
@@ -40,10 +51,20 @@ class Giclee(Sizes):
 
     def magnetic(self, point):
         u"""
-        Swaps point with point on border if within a certain threshold.
+        Swaps point with point on border and central figure if within a certain threshold.
         """
         return point
 
+    def test_gradient(self):
+        rgba0 = (1, 0.5, 0.0, 1)
+        rgba1 = (0.2, 0.7, 0.7, 0.5, 0.5)
+        rgba2 = (0.8, 1, 0.3, 0.7, 0.6)
+        rgbas = [rgba1, rgba2]
+        gradient = self.gradient(rgba0, rgbas)
+        self.context.rectangle(0, 0, 100, 100)
+        self.context.set_source(gradient)
+        self.context.fill()
+
     def save(self):
         print 'Saving %s' % self.path
-        surface.write_to_png(self.path)
+        self.context.save()
