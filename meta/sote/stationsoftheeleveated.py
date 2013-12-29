@@ -13,7 +13,7 @@ class StationsOfTheElevated(Giclee):
 
     def __init__(self):
         super(StationsOfTheElevated, self).__init__(name='stations-of-the-elevated')
-        self.layers = 8
+        self.number_of_layers = 8 # TODO
         number_of_points = 144
         dimension = 2
         self.points = self.loadPoints(number_of_points, dimension)
@@ -55,50 +55,47 @@ class StationsOfTheElevated(Giclee):
             self.context.stroke()
 
     def drawPoints(self):
-
+        u"""
+        Draws points as dots with slightly randomized circles around them.
+        """
         self.context.set_source_rgb(0.8, 0.8, 0.2)
-        self.context.set_line_width(0.5)
+        self.context.set_line_width(0.1)
 
         for point in self.points:
             n1, n2 = point
             self.context.arc(n1, n2, math.sqrt(2), -1 * math.pi, 1 * math.pi)
             self.context.fill()
-            #self.context.stroke()
 
-        '''
-        self.context.set_source_rgb(0, 1, 0)
-
-        for vertex in voronoi.vertices:
-            n1, n2 = vertex
-            #self.context.line_to(n1, n2)
-            self.context.arc(n1, n2, math.sqrt(2), -1 * math.pi, 1 * math.pi)
+            self.context.arc(n1 + numpy.random.rand(), n2 + numpy.random.rand(), 2* math.sqrt(2), -2 * math.pi, 2 * math.pi)
             self.context.stroke()
 
-        self.context.set_source_rgb(0, 0, 1)
-        '''
-            
     def loadPoints(self, number_of_points, dimension):
         return self.getCirclePoints(number_of_points)
         #return self.getRandomPoints(number_of_points, dimension)
 
     def getCirclePoints(self, number_of_points):
+        u"""
+        Divides points on circles between r ≈ 1 and slightly above 0. Number of points decrease for each circle. Also
+        some randomness is added for each point to get less symmetric voronoi edges.
+        """
         points = []
         fx = self.width / 2.0
         fy = self.height / 2.0
 
-        for r in [1, 0.8, 0.75, 0.7, 0.66, 0.5, 0.2, 0.22, 0.23, 0.15, 0.1]:
+        for r in [1.2, 0.95, 0.8, 0.75, 0.7, 0.66, 0.5, 0.2, 0.22, 0.23, 0.15, 0.1]:
         #for r in range(self.layers):
             da = 360.0 / number_of_points
             for j in range(number_of_points):
                 a = j * da
                 radians = math.radians(a)
-                x = r * math.cos(radians) * fx + fx
-                y = r * math.sin(radians) * fy + fy
+                x = r * math.cos(radians) * fx + fx + numpy.random.rand()
+                y = r * math.sin(radians) * fy + fy + numpy.random.rand()
                 points.append((x, y))
             number_of_points -= 12
         return points
 
     def getRandomPoints(self, number_of_points, dimension):
+        #TODO: normalize.
         return numpy.random.randn(number_of_points, dimension)
 
 if __name__ == "__main__":
