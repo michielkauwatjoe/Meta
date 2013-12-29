@@ -23,34 +23,6 @@ class StationsOfTheElevated(Giclee):
         self.drawPoints()
         # Place pattern points around it in rows of several ellipses.
 
-    def normalize(self, point):
-        dx = -self.min_x
-        dy = -self.min_y
-        nx = self.width / self.diff_x
-        ny = self.height / self.diff_y
-        x0 = (point[0] + dx) * nx + (numpy.random.rand() * 3)
-        y0 = (point[1] + dy) * ny + (numpy.random.rand() * 3)
-        return (x0, y0)
-    
-    def setMinMaxDeltas(self):
-        self.min_x = None
-        self.max_x = None
-        self.min_y = None
-        self.max_y = None
-
-        for point in self.points:
-            if self.min_x == None or point[0] < self.min_x:
-                self.min_x = point[0]
-            if self.max_x == None or point[0] > self.max_x:
-                self.max_x = point[0]
-            if self. min_y == None or point[1] < self.min_y:
-                self.min_y = point[1]
-            if self.max_y == None or point[1] > self.max_y:
-                self.max_y = point[1]
-
-        self.diff_x = self.max_x - self.min_x
-        self.diff_y = self.max_y - self.min_y
-
     def drawLines(self, voronoi):
         u"""
         Draws edges between Voronoi facets.
