@@ -13,14 +13,14 @@ class StationsOfTheElevated(Giclee):
 
     def __init__(self):
         super(StationsOfTheElevated, self).__init__(name='stations-of-the-elevated')
-        number_of_points = 30
+        self.layers = 8
+        number_of_points = 144
         dimension = 2
         self.points = self.loadPoints(number_of_points, dimension)
-        #self.setMinMaxDeltas()
         self.qhull = QHull()
         voronoi = self.qhull.voronoi(self.points)
         self.drawLines(voronoi)
-        self.drawPoints(voronoi)
+        self.drawPoints()
         # Place pattern points around it in rows of several ellipses.
 
     def normalize(self, point):
@@ -82,7 +82,7 @@ class StationsOfTheElevated(Giclee):
             self.context.line_to(n2[0], n2[1])
             self.context.stroke()
 
-    def drawPoints(self, voronoi):
+    def drawPoints(self):
 
         self.context.set_source_rgb(0.8, 0.8, 0.2)
         self.context.set_line_width(0.5)
@@ -111,15 +111,19 @@ class StationsOfTheElevated(Giclee):
 
     def getCirclePoints(self, number_of_points):
         points = []
-        r = 1
-        for i in range(number_of_points):
-            a = i * 360.0 / number_of_points
-            print a, math.cos(a)
-            x = (r * math.cos(a))# * (self.width / 2) + (self.width / 2)
-            y = (r * math.sin(a))# * (self.height / 2) + (self.height / 2)
-            x = x * 200
-            y = y * 200
-            points.append((x, y))
+        fx = self.width / 2.0
+        fy = self.height / 2.0
+
+        for r in [1, 0.8, 0.75, 0.7, 0.66, 0.5, 0.2, 0.22, 0.23, 0.15, 0.1]:
+        #for r in range(self.layers):
+            da = 360.0 / number_of_points
+            for j in range(number_of_points):
+                a = j * da
+                radians = math.radians(a)
+                x = r * math.cos(radians) * fx + fx
+                y = r * math.sin(radians) * fy + fy
+                points.append((x, y))
+            number_of_points -= 12
         return points
 
     def getRandomPoints(self, number_of_points, dimension):
