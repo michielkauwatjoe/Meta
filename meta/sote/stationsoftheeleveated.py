@@ -8,19 +8,23 @@ from circus.toolbox.generative.qhull import QHull
 import numpy.random
 import numpy
 import math
+import cairo
 
 class StationsOfTheElevated(Giclee):
 
     def __init__(self):
         super(StationsOfTheElevated, self).__init__(name='stations-of-the-elevated')
-        self.layers = [1.2, 0.95, 0.8, 0.75, 0.7, 0.66, 0.5, 0.2, 0.22, 0.23, 0.15, 0.1]
-        self.number_of_layers = len(self.layers) # TODO
-        number_of_points = 144
+        self.layers = [1.2, 0.95, 0.8, 0.75, 0.7, 0.66, 0.5, 0.43, 0.2, 0.22, 0.23, 0.15, 0.1]
+        self.number_of_layers = len(self.layers)
+        self.decrease = 5
+        number_of_points = self.number_of_layers * self.decrease
         dimension = 2
+        
+        '''Gets point set. This will be the same as voronoi.points as returned by the Qhull object.'''
         self.points = self.loadPoints(number_of_points, dimension)
         self.qhull = QHull()
         voronoi = self.qhull.voronoi(self.points)
-        self.drawLines(voronoi)
+        facets = self.drawEdges(voronoi)
         self.drawPoints()
         self.drawText()
 
@@ -30,20 +34,37 @@ class StationsOfTheElevated(Giclee):
         """
         pass
 
-    def drawLines(self, voronoi):
+    def drawEdges(self, voronoi):
         u"""
-        Draws edges between Voronoi facets.
+        Draws edges between Voronoi facets. From http://www.physics.nyu.edu/grierlab/idl_html_help/Q2.html:
+        
+        For two-dimensional arrays, VDIAGRAM is a 4-by-nv integer array. For each Voronoi ridge, i, VDIAGRAM[0:1, i]
+        contains the index of the two input points the ridge bisects. VDIAGRAM [2:3, i] contains the indices within
+        VVERTICES of the Voronoi vertices. In the case of an unbounded half-space, VDIAGRAM[2, i] is set to a negative
+        index, j, indicating that the corresponding Voronoi ridge is unbounded, and that the equation for the ridge is
+        contained in VNORMAL[*, -j-1], and starts at Voronoi vertex [3, i].
+
+        For three-dimensional or higher dimensional arrays, VDIAGRAM is returned as a connectivity vector. This vector
+        has the form [n, v0, v1, i0, i1, ..., in-3], where n is the number of points needed to describe that particular
+        Voronoi ridge, v0 and v1 contain the indices for the two input points that the ridge bisects, and i0...in -3
+        contain the indices within VVERTICES of the Voronoi vertices. In the case of an unbounded half-space,
+        VDIAGRAM[i] is set to a negative index, j, indicating that the corresponding Voronoi ridge is unbounded, and
+        that the equation for the ridge is contained in VNORMAL[*, -j-1].
+        
+        TODO: sort edges for each facet and return in indexed list.
         """
-        points = voronoi.points
-        avg = numpy.average(points, 0)
+        avg = numpy.average(voronoi.points, 0)
         vertices = voronoi.vertices
+        self.context.set_source_rgb(0.8, 0.14, 0)
+        self.context.set_line_width(0.3)
+        i = 1
 
         for nn, vind in voronoi.ridges.items():
             (i1, i2) = sorted(vind)
 
             if i1 == 0:
                 c1 = numpy.array(vertices[i2])
-                midpt = 0.5 * (numpy.array(points[nn[0]]) + numpy.array(points[nn[1]]))
+                midpt = 0.5 * (numpy.array(voronoi.points[nn[0]]) + numpy.array(voronoi.points[nn[1]]))
                 if numpy.dot(avg - midpt, c1 - midpt) > 0:
                     c2 = c1 + 10 * (midpt - c1)
                 else:
@@ -55,18 +76,19 @@ class StationsOfTheElevated(Giclee):
             n1 = c1
             n2 = c2
 
-            self.context.set_source_rgb(0.8, 1, 0)
-            self.context.set_line_width(0.3)
             self.context.move_to(n1[0], n1[1])
             self.context.line_to(n2[0], n2[1])
             self.context.stroke()
 
-    def drawPoints(self):
+    def drawPoints(self, text=True):
         u"""
         Draws points as dots with slightly randomized circles around them.
         """
         self.context.set_source_rgb(0.8, 0.8, 0.2)
         self.context.set_line_width(0.1)
+        i = 1
+        self.context.select_font_face("Gill Sans", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
+        self.context.set_font_size(4)
 
         for point in self.points:
             n1, n2 = point
@@ -75,6 +97,11 @@ class StationsOfTheElevated(Giclee):
 
             self.context.arc(n1 + numpy.random.rand(), n2 + numpy.random.rand(), 2* math.sqrt(2), -2 * math.pi, 2 * math.pi)
             self.context.stroke()
+            
+            if text:
+                self.context.move_to(n1 + 3, n2 + 3)
+                self.context.show_text(str(i))
+            i += 1
 
     def loadPoints(self, number_of_points, dimension):
         return self.getCirclePoints(number_of_points)
@@ -98,7 +125,7 @@ class StationsOfTheElevated(Giclee):
                 x = r * math.cos(radians) * fx + fx + numpy.random.rand()
                 y = r * math.sin(radians) * fy + fy + numpy.random.rand()
                 points.append((x, y))
-            number_of_points -= 12
+            number_of_points -= self.decrease
         return points
 
     def getRandomPoints(self, number_of_points, dimension):

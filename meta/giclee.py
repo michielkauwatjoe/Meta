@@ -76,9 +76,3 @@ class Giclee(Sizes):
         self.context.rectangle(0, 0, 100, 100)
         self.context.set_source(gradient)
         self.context.fill()
-
-    '''
-    def save(self):
-        print 'Saving %s' % self.path
-        self.context.save()
-    '''
