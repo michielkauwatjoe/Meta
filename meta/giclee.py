@@ -20,7 +20,7 @@ class Giclee(Sizes):
         """
         self.name = name
         self.folder = folder
-        self.path = self.folder + '/' + self.name + '.svg'
+        self.path = self.folder + self.name + '.svg'
         self.colorspace = colorspace
         self.background = background
         self.border_points = border_points
@@ -55,6 +55,18 @@ class Giclee(Sizes):
         """
         return point
 
+    def ink(self, outline, brush_size=10, brush_type='pig-hair'):
+        u"""
+        TODO: should stroke the outline with an ink pattern brush.
+        """
+        pass
+
+    def micron(self, nib_size=10, color='black'):
+        u"""
+        TODO: should stroke the outline with a Micron pattern brush.
+        """
+        pass
+
     def test_gradient(self):
         rgba0 = (1, 0.5, 0.0, 1)
         rgba1 = (0.2, 0.7, 0.7, 0.5, 0.5)
@@ -65,6 +77,8 @@ class Giclee(Sizes):
         self.context.set_source(gradient)
         self.context.fill()
 
+    '''
     def save(self):
         print 'Saving %s' % self.path
         self.context.save()
+    '''

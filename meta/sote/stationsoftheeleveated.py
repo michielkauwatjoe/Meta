@@ -13,7 +13,8 @@ class StationsOfTheElevated(Giclee):
 
     def __init__(self):
         super(StationsOfTheElevated, self).__init__(name='stations-of-the-elevated')
-        self.number_of_layers = 8 # TODO
+        self.layers = [1.2, 0.95, 0.8, 0.75, 0.7, 0.66, 0.5, 0.2, 0.22, 0.23, 0.15, 0.1]
+        self.number_of_layers = len(self.layers) # TODO
         number_of_points = 144
         dimension = 2
         self.points = self.loadPoints(number_of_points, dimension)
@@ -21,7 +22,13 @@ class StationsOfTheElevated(Giclee):
         voronoi = self.qhull.voronoi(self.points)
         self.drawLines(voronoi)
         self.drawPoints()
-        # Place pattern points around it in rows of several ellipses.
+        self.drawText()
+
+    def drawText(self):
+        u"""
+        TODO: draw central text.
+        """
+        pass
 
     def drawLines(self, voronoi):
         u"""
@@ -82,7 +89,7 @@ class StationsOfTheElevated(Giclee):
         fx = self.width / 2.0
         fy = self.height / 2.0
 
-        for r in [1.2, 0.95, 0.8, 0.75, 0.7, 0.66, 0.5, 0.2, 0.22, 0.23, 0.15, 0.1]:
+        for r in self.layers:
         #for r in range(self.layers):
             da = 360.0 / number_of_points
             for j in range(number_of_points):
@@ -100,4 +107,4 @@ class StationsOfTheElevated(Giclee):
 
 if __name__ == "__main__":
     sote = StationsOfTheElevated()
-    sote.save()
+    print sote.path
