@@ -5,10 +5,11 @@
 
 import cairo
 from sizes import Sizes
-from lxml import etree
+from svg import SVG
+from strokes import Strokes
 from reportlab.graphics.renderSVG import SVGCanvas
 
-class Giclee(Sizes):
+class Giclee(Sizes, SVG, Strokes):
     u"""
     Base class for the Giclée print canvas.
     """
@@ -48,31 +49,6 @@ class Giclee(Sizes):
         Draws an auxiliary grid. Should be useful for for example taxi cab Voronoi tessellation.
         """
         pass
-
-    def magnetic(self, point):
-        u"""
-        Swaps point with point on border and central figure if within a certain threshold.
-        """
-        return point
-
-    def ink(self, outline, brush_size=10, brush_type='pig-hair'):
-        u"""
-        TODO: should stroke the outline with an ink pattern brush.
-        """
-        pass
-
-    def micron(self, nib_size=10, color='black'):
-        u"""
-        TODO: should stroke the outline with a Micron pattern brush.
-        """
-        pass
-
-    def loadSVG(self, path):
-        file = open(path, 'r')
-        file_string = ''.join(file.readlines())
-        svg = etree.fromstring(file_string)
-        for element in svg.iter():
-            print element.tag, element.attrib
 
     def test_gradient(self):
         rgba0 = (1, 0.5, 0.0, 1)
