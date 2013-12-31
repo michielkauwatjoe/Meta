@@ -1,12 +1,12 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*- 
+# -*- coding: utf-8 -*-
 #
 # https://github.com/michielkauwatjoe/Meta
 
-#import Image
-#import ImageDraw
 import cairo
 from sizes import Sizes
+from lxml import etree
+from reportlab.graphics.renderSVG import SVGCanvas
 
 class Giclee(Sizes):
     u"""
@@ -29,7 +29,7 @@ class Giclee(Sizes):
         self.surface = cairo.SVGSurface(self.path, self.width, self.height)
         self.context = cairo.Context(self.surface)
         self.draw_border()
-        #self.test_gradient()
+        # self.test_gradient()
 
     def gradient(self, rgba, rgbas):
         gradient = cairo.LinearGradient(rgba[0], rgba[1], rgba[2], rgba[3])
@@ -66,6 +66,13 @@ class Giclee(Sizes):
         TODO: should stroke the outline with a Micron pattern brush.
         """
         pass
+
+    def loadSVG(self, path):
+        file = open(path, 'r')
+        file_string = ''.join(file.readlines())
+        svg = etree.fromstring(file_string)
+        for element in svg.iter():
+            print element.tag, element.attrib
 
     def test_gradient(self):
         rgba0 = (1, 0.5, 0.0, 1)

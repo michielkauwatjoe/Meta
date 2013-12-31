@@ -9,6 +9,7 @@ import numpy.random
 import numpy
 import math
 import cairo
+from lxml import etree
 
 class StationsOfTheElevated(Giclee):
 
@@ -19,6 +20,7 @@ class StationsOfTheElevated(Giclee):
         self.decrease = 5
         number_of_points = self.number_of_layers * self.decrease
         dimension = 2
+        path_figure = '/Users/michiel/Designs/2012-12 - Stations of the Elevated/stations-of-the-elevated.svg'
 
         '''Gets point set. This will be the same as voronoi.points as returned by the Qhull object.'''
         self.points = self.loadPoints(number_of_points, dimension)
@@ -26,13 +28,13 @@ class StationsOfTheElevated(Giclee):
         voronoi = self.qhull.voronoi(self.points)
         facets = self.drawEdges(voronoi)
         self.drawPoints()
-        self.drawText()
+        self.drawFigure(path_figure)
 
-    def drawText(self):
+    def drawFigure(self, path):
         u"""
         TODO: draw central text.
         """
-        pass
+        svg = self.loadSVG(path)
 
     def drawEdges(self, voronoi):
         u"""
