@@ -27,7 +27,7 @@ class StationsOfTheElevated(Giclee):
         self.qhull = QuickHull()
         voronoi = self.qhull.voronoi(self.points)
         facets = self.drawEdges(voronoi)
-        self.drawPoints()
+        self.drawPoints(numbers=False)
         self.drawFigure(path_figure)
 
     def drawFigure(self, path):
@@ -35,6 +35,7 @@ class StationsOfTheElevated(Giclee):
         TODO: draw central text.
         """
         svg = self.loadSVG(path)
+        self.drawSVG(svg)
 
     def drawEdges(self, voronoi):
         u"""
@@ -86,7 +87,7 @@ class StationsOfTheElevated(Giclee):
 
         return edges
 
-    def drawPoints(self, text=True):
+    def drawPoints(self, numbers=True):
         u"""
         Draws points as dots with slightly randomized circles around them.
         """
@@ -104,7 +105,7 @@ class StationsOfTheElevated(Giclee):
             self.context.arc(n1 + numpy.random.rand(), n2 + numpy.random.rand(), 2 * math.sqrt(2), -2 * math.pi, 2 * math.pi)
             self.context.stroke()
 
-            if text:
+            if numbers:
                 self.context.move_to(n1 + 3, n2 + 3)
                 self.context.show_text(str(i))
             i += 1
