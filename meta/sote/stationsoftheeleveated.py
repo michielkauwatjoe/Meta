@@ -9,12 +9,14 @@ import numpy.random
 import numpy
 import math
 import cairo
+import datetime
 from lxml import etree
 
 class StationsOfTheElevated(Giclee):
 
     def __init__(self):
-        super(StationsOfTheElevated, self).__init__(name='stations-of-the-elevated')
+        name = self.getName()
+        super(StationsOfTheElevated, self).__init__(name=name)
         self.layers = [1.2, 0.95, 0.8, 0.75, 0.7, 0.66, 0.5, 0.43, 0.2, 0.22, 0.23, 0.15, 0.1]
         self.number_of_layers = len(self.layers)
         self.decrease = 5
@@ -29,6 +31,12 @@ class StationsOfTheElevated(Giclee):
         facets = self.drawEdges(voronoi)
         self.drawPoints(numbers=False)
         self.drawFigure(path_figure)
+
+    def getName(self):
+        now = str(datetime.datetime.now())[:19]
+        now = now.replace(' ', '_')
+        now = now.replace(':', '.')
+        return 'stations-of-the-elevated_' + now
 
     def drawFigure(self, path):
         u"""
