@@ -5,11 +5,12 @@
 
 import cairo
 from sizes import Sizes
+from configuration.configuration import Configuration
 from svg import SVG
 from strokes import Strokes
 from reportlab.graphics.renderSVG import SVGCanvas
 
-class Giclee(Sizes, SVG, Strokes):
+class Giclee(Sizes, SVG, Strokes, Configuration):
     u"""
     Base class for the Giclée print canvas.
     """

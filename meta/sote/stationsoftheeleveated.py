@@ -31,6 +31,7 @@ class StationsOfTheElevated(Giclee):
         facets = self.drawEdges(voronoi)
         self.drawPoints(numbers=False)
         self.drawFigure(path_figure)
+        self.sortEdges(voronoi)
 
     def getName(self):
         now = str(datetime.datetime.now())[:19]
@@ -44,6 +45,10 @@ class StationsOfTheElevated(Giclee):
         """
         svg = self.loadSVG(path)
         self.drawSVG(svg)
+
+    def sortEdges(self, voronoi):
+        for point_indices, vertex_index in voronoi.ridges.items():
+            print point_indices, vertex_index
 
     def drawEdges(self, voronoi):
         u"""
@@ -124,7 +129,7 @@ class StationsOfTheElevated(Giclee):
 
     def getCirclePoints(self, number_of_points):
         u"""
-        Divides points on circles between r ≈ 1 and slightly above 0. Number of points decrease for each circle. Also
+        Divides points on circles between r ��� 1 and slightly above 0. Number of points decrease for each circle. Also
         some randomness is added for each point to get less symmetric voronoi edges.
         """
         points = []
