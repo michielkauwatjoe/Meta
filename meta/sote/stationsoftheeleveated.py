@@ -40,7 +40,7 @@ class StationsOfTheElevated(Giclee):
         rgba2 = (1, 0, 0.8, 0.3, 1)
         rgbas = [rgba1, rgba2]
         gradient = self.gradient(rgba0, rgbas)
-        self.context.rectangle(0, 0, 100, 100)
+        self.context.rectangle(0, 0, self.width, self.height)
         self.context.set_source(gradient)
         self.context.fill()
 
