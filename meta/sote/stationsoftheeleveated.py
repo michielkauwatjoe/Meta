@@ -28,10 +28,21 @@ class StationsOfTheElevated(Giclee):
         self.points = self.loadPoints(number_of_points, dimension)
         self.qhull = QuickHull()
         voronoi = self.qhull.voronoi(self.points)
-        facets = self.drawEdges(voronoi)
-        self.drawPoints(numbers=False)
-        self.drawFigure(path_figure)
-        self.sortEdges(voronoi)
+        # facets = self.drawEdges(voronoi)
+        # self.drawPoints(numbers=False)
+        # self.drawFigure(path_figure)
+        # self.sortEdges(voronoi)
+        self.drawGradients()
+
+    def drawGradients(self):
+        rgba0 = (0, 0, 1, 1)
+        rgba1 = (0, 0, 0.3, 0.8, 1)
+        rgba2 = (1, 0, 0.8, 0.3, 1)
+        rgbas = [rgba1, rgba2]
+        gradient = self.gradient(rgba0, rgbas)
+        self.context.rectangle(0, 0, 100, 100)
+        self.context.set_source(gradient)
+        self.context.fill()
 
     def getName(self):
         now = str(datetime.datetime.now())[:19]

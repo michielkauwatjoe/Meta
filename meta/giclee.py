@@ -31,7 +31,6 @@ class Giclee(Sizes, SVG, Strokes, Configuration):
         self.surface = cairo.SVGSurface(self.path, self.width, self.height)
         self.context = cairo.Context(self.surface)
         self.draw_border()
-        # self.test_gradient()
 
     def gradient(self, rgba, rgbas):
         gradient = cairo.LinearGradient(rgba[0], rgba[1], rgba[2], rgba[3])
@@ -50,13 +49,3 @@ class Giclee(Sizes, SVG, Strokes, Configuration):
         Draws an auxiliary grid. Should be useful for for example taxi cab Voronoi tessellation.
         """
         pass
-
-    def test_gradient(self):
-        rgba0 = (1, 0.5, 0.0, 1)
-        rgba1 = (0.2, 0.7, 0.7, 0.5, 0.5)
-        rgba2 = (0.8, 1, 0.3, 0.7, 0.6)
-        rgbas = [rgba1, rgba2]
-        gradient = self.gradient(rgba0, rgbas)
-        self.context.rectangle(0, 0, 100, 100)
-        self.context.set_source(gradient)
-        self.context.fill()
