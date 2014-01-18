@@ -47,9 +47,11 @@ class StationsOfTheElevated(Giclee):
         rgba1 = (0, 0, 0.3, 0.8)
         rgba2 = (1, 0, 0.8, 0.3)
         rgbas = [rgba1, rgba2]
-        gradient = self.gradient(box, rgba1, rgba2)
+        linear_gradient = self.linearGradient(box, rgba1, rgba2)
+        radial_gradient = self.radialGradient(box)
         self.context.rectangle(x, y, w, h)
-        self.context.set_source(gradient)
+        self.context.set_source(linear_gradient)
+        self.context.mask(radial_gradient)
         self.context.fill()
 
     def getName(self):
@@ -90,7 +92,7 @@ class StationsOfTheElevated(Giclee):
         """
         avg = numpy.average(voronoi.points, 0)
         vertices = voronoi.vertices
-        self.context.set_source_rgb(0.8, 0.14, 0)
+        self.context.set_source_rgb(1, 1, 1)
         self.context.set_line_width(0.3)
         i = 1
 
@@ -123,7 +125,6 @@ class StationsOfTheElevated(Giclee):
         u"""
         Draws points as dots with slightly randomized circles around them.
         """
-        self.context.set_source_rgb(0.8, 0.8, 0.2)
         self.context.set_line_width(0.1)
         i = 1
         self.context.select_font_face("Gill Sans", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
@@ -131,9 +132,11 @@ class StationsOfTheElevated(Giclee):
 
         for point in self.points:
             n1, n2 = point
+            self.context.set_source_rgb(0.8, 0.8, 0.2)
             self.context.arc(n1, n2, math.sqrt(2), -1 * math.pi, 1 * math.pi)
             self.context.fill()
 
+            self.context.set_source_rgb(1, 1, 1)
             self.context.arc(n1 + numpy.random.rand(), n2 + numpy.random.rand(), 2 * math.sqrt(2), -2 * math.pi, 2 * math.pi)
             self.context.stroke()
 
