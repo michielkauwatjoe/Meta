@@ -32,10 +32,10 @@ class Giclee(Sizes, SVG, Strokes, Configuration):
         self.context = cairo.Context(self.surface)
         self.draw_border()
 
-    def gradient(self, rgba, rgbas):
-        gradient = cairo.LinearGradient(rgba[0], rgba[1], rgba[2], rgba[3])
-        for rgba in rgbas:
-            gradient.add_color_stop_rgba(rgba[0], rgba[1], rgba[2], rgba[3], rgba[4])
+    def gradient(self, box, rgba1, rgba2):
+        gradient = cairo.LinearGradient(box[0], box[1], box[2], box[3])
+        gradient.add_color_stop_rgb(rgba1[0], rgba1[1], rgba1[2], rgba1[3])
+        gradient.add_color_stop_rgb(rgba2[0], rgba2[1], rgba2[2], rgba2[3])
         return gradient
 
     def draw_border(self):

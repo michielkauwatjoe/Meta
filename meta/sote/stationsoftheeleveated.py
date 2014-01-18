@@ -28,19 +28,27 @@ class StationsOfTheElevated(Giclee):
         self.points = self.loadPoints(number_of_points, dimension)
         self.qhull = QuickHull()
         voronoi = self.qhull.voronoi(self.points)
-        # facets = self.drawEdges(voronoi)
-        # self.drawPoints(numbers=False)
-        # self.drawFigure(path_figure)
-        # self.sortEdges(voronoi)
         self.drawGradients()
+        facets = self.drawEdges(voronoi)
+        self.drawPoints(numbers=False)
+        self.drawFigure(path_figure)
+        self.sortEdges(voronoi)
 
     def drawGradients(self):
-        rgba0 = (0, 0, 1, 1)
-        rgba1 = (0, 0, 0.3, 0.8, 1)
-        rgba2 = (1, 0, 0.8, 0.3, 1)
+        u"""
+        Testing gradient.
+        TODO: fill each cell with separate gradient.
+        """
+        x = 0
+        y = 0
+        w = self.width
+        h = self.height
+        box = (x, y, w, h)
+        rgba1 = (0, 0, 0.3, 0.8)
+        rgba2 = (1, 0, 0.8, 0.3)
         rgbas = [rgba1, rgba2]
-        gradient = self.gradient(rgba0, rgbas)
-        self.context.rectangle(0, 0, self.width, self.height)
+        gradient = self.gradient(box, rgba1, rgba2)
+        self.context.rectangle(x, y, w, h)
         self.context.set_source(gradient)
         self.context.fill()
 
