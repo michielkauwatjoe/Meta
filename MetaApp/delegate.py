@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 # -----------------------------------------------------------------------------
 #    Meta appication.
-#    Copyright (c) 2014+  buro@petr.com, www.petr.com, www.mijksenaar.com
+#    Copyright (c) 2014+ www.michielkauwatjoe.com
 #
 #    Distribution by the MIT License.
 #
@@ -40,16 +40,17 @@ from meta.model import Model
 # Application object.
 
 '''
-from KeysAndMouse import MetaKeysAndMouse
-from Drawing import MetaDrawing
-from Clicked import MetaClicked
-from Marquee import MetaMarquee
-from Aux import MetaAuxiliary
+from keysandmouse import KeysAndMouse
+from drawing import Drawing
+from clicked import Clicked
+from marquee import Marquee
 '''
 from paper import Paper
 from dialogs import Dialogs
+from aux import Auxiliary
+from callbacks import Callbacks
 
-class Delegate(NSObject, Dialogs, Paper):
+class Delegate(NSObject, Dialogs, Paper, Auxiliary, Callbacks):
     u"""
     Main delegate for Meta application. Passed as delegate to Paper view,
     so controls and drawing are all done inside this object.
@@ -71,17 +72,11 @@ class Delegate(NSObject, Dialogs, Paper):
 
     # Default values.
 
-    defaultWidth = '29.7'
-    defaultHeight = '21.0'
-    defaultName = 'Untitled'
+    defaultDocumentName = 'Untitled'
+    defaultPaperSize = 'A3'
 
-    # Initial dialog values.
-
-    documentValues = {}
-
-    # Active document & window.
-
-    currentDocument = None
+    documentValues = {} # Initial document values.
+    currentDocument = None # Active document.
 
     # Units & measures. TODO: move to document.
 

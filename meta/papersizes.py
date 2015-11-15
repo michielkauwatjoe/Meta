@@ -60,7 +60,10 @@ class PaperSizes(object):
         'DL': {'mm': (110, 220), 'in': ()}
     }
 
-    LETTER = {'mm': (215.9, 279.4), 'in': (8.5, 11)}
+    LETTER = {'Letter': {'mm': (215.9, 279.4), 'in': (8.5, 11)}}
+
+
+    STANDARDS = [ISO_216_A, ISO_216_B, ISO_269_C, ISO_269_D, LETTER]
 
     def getSize(self, name, unit):
         u"""
@@ -83,4 +86,11 @@ class PaperSizes(object):
             sizes = self.LETTER
             return sizes[unit]
 
+    @classmethod
+    def getAllPaperSizes(self):
+        names = []
 
+        for standard in self.STANDARDS:
+            names += standard.keys()
+
+        return names
