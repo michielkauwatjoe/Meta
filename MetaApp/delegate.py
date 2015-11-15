@@ -7,7 +7,7 @@
 #
 # -----------------------------------------------------------------------------
 #
-#    AppDelegate.py
+#    delegate.py
 #
 
 # General Python libraries.
@@ -42,23 +42,23 @@ from meta.model import Model
 '''
 from KeysAndMouse import MetaKeysAndMouse
 from Drawing import MetaDrawing
-from Canvas import MetaCanvas
 from Clicked import MetaClicked
 from Marquee import MetaMarquee
 from Aux import MetaAuxiliary
-from Dialogs import MetaDialogs
 '''
+from paper import Paper
+from dialogs import Dialogs
 
-class MetaAppDelegate(NSObject):
+class Delegate(NSObject, Dialogs, Paper):
     u"""
-    Main delegate for Meta application. Passed as delegate to CanvasView,
+    Main delegate for Meta application. Passed as delegate to Paper view,
     so controls and drawing are all done inside this object.
     """
 
     # Main global objects.
 
     model = None
-    projectWindows = {}
+    windows = {}
 
     # Dialogs.
 
@@ -66,8 +66,8 @@ class MetaAppDelegate(NSObject):
     saveDialogSize = (400, 100)
 
     startDialog = None
-    newProjectDialog = None
-    saveProjectDialog = None
+    newDocumentDialog = None
+    saveDocumentDialog = None
 
     # Default values.
 
@@ -77,13 +77,13 @@ class MetaAppDelegate(NSObject):
 
     # Initial dialog values.
 
-    projectValues = {}
+    documentValues = {}
 
-    # Active project & window.
+    # Active document & window.
 
-    currentProject = None
+    currentDocument = None
 
-    # Units & measures. TODO: move to project.
+    # Units & measures. TODO: move to document.
 
     width = None
     height = None
@@ -98,7 +98,7 @@ class MetaAppDelegate(NSObject):
         self.model = Model()
         self.path = os.path.join(os.path.dirname(__file__))
         self.resourcePath = NSBundle.mainBundle().resourcePath()
-        self.projectFilesPath = self.resourcePath + '/en.lproj/'
+        self.documentFilesPath = self.resourcePath + '/en.lproj/'
         self.openStartWindow()
 
     def applicationShouldTerminate_(self, sender):
@@ -110,14 +110,14 @@ class MetaAppDelegate(NSObject):
 
     # Interface Builder actions and dialogs.
 
-    def openProjectWindow(self, project):
+    def openDocumentWindow(self, document):
         u"""
-        Controls and canvas view for a project.
+        Controls and paper view for a document.
         """
-        self.windowSize = (project.width, project.height)
+        self.windowSize = (document.width, document.height)
         w = Window(self.windowSize, minSize=(1, 1), maxSize=self.windowSize, closable=False)
-        self.setCanvas(w, project)
-        self.setStatusBar(w, project)
+        self.setPaper(w, document)
+        self.setStatusBar(w, document)
         w.bind("should close", self.windowShouldCloseCallback)
         w.bind("close", self.windowCloseCallback)
         w.open()
@@ -128,23 +128,23 @@ class MetaAppDelegate(NSObject):
         w.addToolbar("Toolbar", toolbarItems=tools)
         w.getNSWindow().toolbar().setSelectedItemIdentifier_("arrow")
 
-    def setCanvas(self, w, project):
+    def setPaper(self, w, document):
         u"""
-        Scalable and resizable drawing canvas.
+        Scalable and resizable drawing paper.
         """
-        w.canvas = MetaCanvas((0, 30, -230, -20), delegate=self, canvasSize=self.windowSize, width=project.width, height=project.height)
-        w.canvas.getNSSubView().scaleUnitSquareToSize_((1.0, 1.0))
+        w.paper = MetaPaper((0, 30, -230, -20), delegate=self, paperSize=self.windowSize, width=document.width, height=document.height)
+        w.paper.getNSSubView().scaleUnitSquareToSize_((1.0, 1.0))
 
-    def setStatusBar(self, w, project):
+    def setStatusBar(self, w, document):
         u"""
         Sets up status bar at the bottom.
         """
         w.popUpButton = PopUpButton((0, -20, 150, 18), ["Display...", "Flow Control Points", "Flow Labels"], callback=self.popUpButtonCallback)
         w.popUpButton.getNSPopUpButton().setPullsDown_(True)
-        w.projectNameLabel = TextBox((154, -18, 100, 18), 'Project:', sizeStyle='small')
-        w.projectNameText = TextBox((204, -18, 150, 18), project.name, sizeStyle='small')
-        w.projectPathLabel = TextBox((354, -18, 100, 18), 'Path:', sizeStyle='small')
-        w.projectPathText = TextBox((404, -18, 400, 18), project.path, sizeStyle='small')
+        w.documentNameLabel = TextBox((154, -18, 100, 18), 'Document:', sizeStyle='small')
+        w.documentNameText = TextBox((204, -18, 150, 18), document.name, sizeStyle='small')
+        w.documentPathLabel = TextBox((354, -18, 100, 18), 'Path:', sizeStyle='small')
+        w.documentPathText = TextBox((404, -18, 400, 18), document.path, sizeStyle='small')
 
     def windowCloseCallback(self, sender):
         u"""
@@ -155,98 +155,92 @@ class MetaAppDelegate(NSObject):
     # IBActions.
 
     @objc.IBAction
-    def openProject_(self, sender):
-        self.openOpenProjectDialog()
+    def open_(self, sender):
+        self.openOpenDocumentDialog()
 
     @objc.IBAction
-    def newProject_(self, sender):
-        if self.newProjectDialog is None:
-            self.openNewProjectDialog()
-
-    @objc.IBAction
-    def importDestinations_(self, sender):
-        u"""
-        """
-        pass
+    def new_(self, sender):
+        if self.newDocumentDialog is None:
+            self.openNewDocumentDialog()
 
     @objc.IBAction
     def zoomIn_(self, sender):
-        u"""Increases scale unit, canvas size."""
+        u"""Increases scale unit, paper size."""
         window = self.getCurrentWindow()
-        project = self.currentProject
+        document = self.currentDocument
         z = 1 * self.zoomFactor
-        window.canvas.zoom(z)
-        window.canvas.update()
+        window.paper.zoom(z)
+        window.paper.update()
 
     @objc.IBAction
     def zoomOut_(self, sender):
-        u"""Decreases scale unit, canvas size."""
+        u"""Decreases scale unit, paper size."""
         window = self.getCurrentWindow()
-        project = self.currentProject
+        document = self.currentDocument
         z = 1 / self.zoomFactor
-        window.canvas.zoom(z)
-        window.canvas.update()
+        window.paper.zoom(z)
+        window.paper.update()
 
     @objc.IBAction
-    def closeProject_(self, sender):
-        if not self.currentProject is None and self.currentProject.isDirty():
-            self.openSaveProjectDialog()
+    def close_(self, sender):
+        if not self.currentDocument is None and self.currentDocument.isDirty():
+            self.openSaveDocumentDialog()
         else:
-            self.closeProject()
-            self.closeSaveProjectDialog()
+            self.closeDocument()
+            self.closeSaveDocumentDialog()
 
     @objc.IBAction
     def selectAll_(self, sender):
         window = self.getCurrentWindow()
         floor = self.getFloor()
         floor.selectAll()
-        window.canvas.update()
-
-    def closeProject(self, save=False):
-        self.model.closeProject(self.currentProject.pid, save=save)
-        self.projectWindows[self.currentProject.pid].close()
-
-    def closeSaveProjectDialog(self):
-        self.saveProjectDialog.close()
-        self.saveProjectDialog = None
+        window.paper.update()
 
     @objc.IBAction
-    def saveProject_(self, sender):
-        self.model.saveProject(self.currentProject.pid)
+    def save_(self, sender):
+        self.model.saveDocument(self.currentDocument.pid)
 
     @objc.IBAction
-    def saveProjectAs_(self, sender):
-        self.model.saveProjectAs(self.currentProject.pid)
+    def saveAs_(self, sender):
+        self.model.saveDocumentAs(self.currentDocument.pid)
 
     @objc.IBAction
     def undo_(self, sender):
-        self.currentProject.undo()
+        self.currentDocument.undo()
         self.setCurrentObjects()
         self.update()
 
     @objc.IBAction
     def redo_(self, sender):
-        self.currentProject.redo()
+        self.currentDocument.redo()
         self.setCurrentObjects()
         self.update()
 
-    # Project.
+    # Document.
 
-    def initProject(self, added, project):
+    def closeDocument(self, save=False):
+        self.model.closeDocument(self.currentDocument.pid, save=save)
+        self.windows[self.currentDocument.pid].close()
+
+    def closeSaveDocumentDialog(self):
+        self.saveDocumentDialog.close()
+        self.saveDocumentDialog = None
+
+    def initDocument(self, added, document):
         u"""
         """
-        #progressWindow = ProgressWindow()
+        progressWindow = ProgressWindow()
 
         if not added:
-            print 'Project %s, already open' % project.pid
+            print 'Document %s, already open' % document.pid
         else:
-            self.currentProject = project
-            window = self.openProjectWindow(project)
-            self.projectWindows[project.pid] = window
-            self.redrawCanvas = True
-            window.canvas.update(source='initProject')
+            self.currentDocument = document
+            window = self.openDocumentWindow(document)
+            self.windows[document.pid] = window
+            self.redrawPaper = True
+            window.paper.update()
 
-        #progressWindow.close()
+        progressWindow.close()
 
     # Main view update logic.
 
@@ -257,4 +251,4 @@ class MetaAppDelegate(NSObject):
         window = self.getCurrentWindow()
 
         if not window is None:
-            window.canvas.update(source='main update')
+            window.paper.update()

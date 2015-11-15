@@ -20,8 +20,8 @@ reactor = install()
 
 # We need to import all classes used in nib files before running the
 # application.
-import AppDelegate
-import Canvas
+import delegate
+#import Print
 
 import objc; objc.setVerbose(True)
 

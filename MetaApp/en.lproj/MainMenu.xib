@@ -62,10 +62,14 @@
                 <menuItem title="File" id="83">
                     <menu key="submenu" title="File" id="81">
                         <items>
-                            <menuItem title="New" keyEquivalent="n" id="82" userLabel="New"/>
+                            <menuItem title="New" keyEquivalent="n" id="82" userLabel="New">
+                                <connections>
+                                    <action selector="new:" target="qNn-Nz-ilE" id="GTC-7G-V2D"/>
+                                </connections>
+                            </menuItem>
                             <menuItem title="Open…" keyEquivalent="o" id="3rG-1J-ytm">
                                 <connections>
-                                    <action selector="openProject:" target="-1" id="vR9-15-tZu"/>
+                                    <action selector="open:" target="qNn-Nz-ilE" id="PXQ-cF-8mt"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="Open Recent" id="124">
@@ -82,20 +86,20 @@
                             <menuItem isSeparatorItem="YES" id="79" userLabel="Separator">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
-                            <menuItem title="Close Project" keyEquivalent="w" id="73" userLabel="Close">
+                            <menuItem title="Close" keyEquivalent="w" id="73" userLabel="Close">
                                 <connections>
-                                    <action selector="closeProject:" target="-1" id="0PI-kU-Tzq"/>
+                                    <action selector="close:" target="qNn-Nz-ilE" id="MdX-Na-fIR"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Save Project" keyEquivalent="s" id="75" userLabel="Save">
+                            <menuItem title="Save" keyEquivalent="s" id="75" userLabel="Save">
                                 <connections>
-                                    <action selector="saveProject:" target="-1" id="AHQ-uK-QBD"/>
+                                    <action selector="save:" target="qNn-Nz-ilE" id="pLi-qb-aN6"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Save Project As…" keyEquivalent="S" id="80" userLabel="Save As...">
+                            <menuItem title="Save As…" keyEquivalent="S" id="80" userLabel="Save As...">
                                 <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
                                 <connections>
-                                    <action selector="saveProjectAs:" target="-1" id="LdE-R2-Zfm"/>
+                                    <action selector="saveAs:" target="qNn-Nz-ilE" id="fey-vK-xQb"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="Revert to Saved" id="112" userLabel="Revert to Saved">
@@ -126,8 +130,15 @@
                         <items>
                             <menuItem title="Redo" keyEquivalent="Z" id="215">
                                 <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
+                                <connections>
+                                    <action selector="redo:" target="qNn-Nz-ilE" id="E5E-SQ-Hua"/>
+                                </connections>
                             </menuItem>
-                            <menuItem title="Undo" keyEquivalent="z" id="207"/>
+                            <menuItem title="Undo" keyEquivalent="z" id="207">
+                                <connections>
+                                    <action selector="undo:" target="qNn-Nz-ilE" id="AjE-ac-Uv4"/>
+                                </connections>
+                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="206">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
@@ -154,7 +165,7 @@
                             <menuItem title="Select All" id="198">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="selectAll:" target="-1" id="232"/>
+                                    <action selector="selectAll:" target="qNn-Nz-ilE" id="KF9-Dp-ThH"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="214">
@@ -248,6 +259,23 @@
                         </items>
                     </menu>
                 </menuItem>
+                <menuItem title="View" id="NSk-K7-fmd">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="View" id="6xR-Pv-mw2">
+                        <items>
+                            <menuItem title="Zoom In" keyEquivalent="+" id="BYU-n8-B9q">
+                                <connections>
+                                    <action selector="zoomIn:" target="qNn-Nz-ilE" id="Fmv-fj-dQr"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Zoom Out" keyEquivalent="-" id="tja-3v-QiG">
+                                <connections>
+                                    <action selector="zoomOut:" target="qNn-Nz-ilE" id="Kuo-yH-4yB"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
                 <menuItem title="Help" id="103" userLabel="Help">
                     <menu key="submenu" title="Help" id="106" userLabel="Help">
                         <items>
@@ -261,5 +289,6 @@
                 </menuItem>
             </items>
         </menu>
+        <customObject id="qNn-Nz-ilE" customClass="Delegate"/>
     </objects>
 </document>

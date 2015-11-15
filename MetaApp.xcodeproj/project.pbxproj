@@ -8,14 +8,22 @@
 
 /* Begin PBXBuildFile section */
 		CC5EA64D1A41A64A00B204D0 /* libpython2.7.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CC5EA64C1A41A64A00B204D0 /* libpython2.7.dylib */; };
-		CC8E49341BF8B9A900677633 /* AppDelegate.py in Resources */ = {isa = PBXBuildFile; fileRef = CC8E49331BF8B9A900677633 /* AppDelegate.py */; };
+		CC78F6AE1BF8CE4F00E5C1C3 /* delegate.py in Resources */ = {isa = PBXBuildFile; fileRef = CC78F6AD1BF8CE4F00E5C1C3 /* delegate.py */; };
+		CC8DB9BB1BF8C8B6001F4835 /* en.lproj in Resources */ = {isa = PBXBuildFile; fileRef = CC8DB9BA1BF8C8B6001F4835 /* en.lproj */; };
+		CC8DB9BF1BF8C8C9001F4835 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CC8DB9BC1BF8C8C9001F4835 /* main.m */; };
+		CC8DB9C01BF8C8C9001F4835 /* main.py in Resources */ = {isa = PBXBuildFile; fileRef = CC8DB9BD1BF8C8C9001F4835 /* main.py */; };
+		CC8DB9C11BF8C8C9001F4835 /* setup.py in Resources */ = {isa = PBXBuildFile; fileRef = CC8DB9BE1BF8C8C9001F4835 /* setup.py */; };
 		CC8E49371BF8B9EE00677633 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC8E49351BF8B9EE00677633 /* MainMenu.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		CC2ABDBC1A419A0E007F6501 /* WayFinding.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WayFinding.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC5EA64C1A41A64A00B204D0 /* libpython2.7.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpython2.7.dylib; path = ../../../../../System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/config/libpython2.7.dylib; sourceTree = "<group>"; };
-		CC8E49331BF8B9A900677633 /* AppDelegate.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = AppDelegate.py; path = MetaApp/AppDelegate.py; sourceTree = "<group>"; };
+		CC78F6AD1BF8CE4F00E5C1C3 /* delegate.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = delegate.py; path = MetaApp/delegate.py; sourceTree = "<group>"; };
+		CC8DB9BA1BF8C8B6001F4835 /* en.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; name = en.lproj; path = MetaApp/en.lproj; sourceTree = "<group>"; };
+		CC8DB9BC1BF8C8C9001F4835 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = MetaApp/main.m; sourceTree = "<group>"; };
+		CC8DB9BD1BF8C8C9001F4835 /* main.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = main.py; path = MetaApp/main.py; sourceTree = "<group>"; };
+		CC8DB9BE1BF8C8C9001F4835 /* setup.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = setup.py; path = MetaApp/setup.py; sourceTree = "<group>"; };
 		CC8E49361BF8B9EE00677633 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = MetaApp/en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -34,8 +42,12 @@
 		CC2ABDB31A419A0E007F6501 = {
 			isa = PBXGroup;
 			children = (
+				CC78F6AD1BF8CE4F00E5C1C3 /* delegate.py */,
 				CC8E49351BF8B9EE00677633 /* MainMenu.xib */,
-				CC8E49331BF8B9A900677633 /* AppDelegate.py */,
+				CC8DB9BC1BF8C8C9001F4835 /* main.m */,
+				CC8DB9BD1BF8C8C9001F4835 /* main.py */,
+				CC8DB9BE1BF8C8C9001F4835 /* setup.py */,
+				CC8DB9BA1BF8C8B6001F4835 /* en.lproj */,
 				CC2ABDBD1A419A0E007F6501 /* Products */,
 				CC5EA64C1A41A64A00B204D0 /* libpython2.7.dylib */,
 			);
@@ -83,7 +95,7 @@
 					};
 				};
 			};
-			buildConfigurationList = CC2ABDB71A419A0E007F6501 /* Build configuration list for PBXProject "Meta" */;
+			buildConfigurationList = CC2ABDB71A419A0E007F6501 /* Build configuration list for PBXProject "MetaApp" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -106,8 +118,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CC8E49341BF8B9A900677633 /* AppDelegate.py in Resources */,
+				CC8DB9BB1BF8C8B6001F4835 /* en.lproj in Resources */,
 				CC8E49371BF8B9EE00677633 /* MainMenu.xib in Resources */,
+				CC78F6AE1BF8CE4F00E5C1C3 /* delegate.py in Resources */,
+				CC8DB9C11BF8C8C9001F4835 /* setup.py in Resources */,
+				CC8DB9C01BF8C8C9001F4835 /* main.py in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -118,6 +133,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC8DB9BF1BF8C8C9001F4835 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -254,7 +270,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		CC2ABDB71A419A0E007F6501 /* Build configuration list for PBXProject "Meta" */ = {
+		CC2ABDB71A419A0E007F6501 /* Build configuration list for PBXProject "MetaApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CC2ABDD71A419A0E007F6501 /* Debug */,
