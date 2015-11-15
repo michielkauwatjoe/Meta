@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "E45079EF4E77A46A08728ABB6D4CCB5CF79194D3",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "E45079EF4E77A46A08728ABB6D4CCB5CF79194D3" : 0,
+    "0E273081BF62DB920C2D3F3D6EFA129362D3A5FC" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "52B71B17-FC1C-4A72-9E18-DE5FA8D667ED",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "E45079EF4E77A46A08728ABB6D4CCB5CF79194D3" : "WayFinding",
+    "0E273081BF62DB920C2D3F3D6EFA129362D3A5FC" : "WayFindingTools"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "WayFinding",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "WayFinding.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:petrvanblokland\/WayFindingTools.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "0E273081BF62DB920C2D3F3D6EFA129362D3A5FC"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:petrvanblokland\/WayFinding.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "E45079EF4E77A46A08728ABB6D4CCB5CF79194D3"
+    }
+  ]
+}

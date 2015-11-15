@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>52B71B17-FC1C-4A72-9E18-DE5FA8D667ED</string>
+	<key>IDESourceControlProjectName</key>
+	<string>WayFinding</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>0E273081BF62DB920C2D3F3D6EFA129362D3A5FC</key>
+		<string>github.com:petrvanblokland/WayFindingTools.git</string>
+		<key>E45079EF4E77A46A08728ABB6D4CCB5CF79194D3</key>
+		<string>github.com:petrvanblokland/WayFinding.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>WayFinding.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>0E273081BF62DB920C2D3F3D6EFA129362D3A5FC</key>
+		<string>../..Tools</string>
+		<key>E45079EF4E77A46A08728ABB6D4CCB5CF79194D3</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>github.com:petrvanblokland/WayFinding.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>E45079EF4E77A46A08728ABB6D4CCB5CF79194D3</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>E45079EF4E77A46A08728ABB6D4CCB5CF79194D3</string>
+			<key>IDESourceControlWCCName</key>
+			<string>WayFinding</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>0E273081BF62DB920C2D3F3D6EFA129362D3A5FC</string>
+			<key>IDESourceControlWCCName</key>
+			<string>WayFindingTools</string>
+		</dict>
+	</array>
+</dict>
+</plist>
