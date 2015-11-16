@@ -12,21 +12,21 @@
 
 class Callbacks(object):
 
-    def newDocumentNameCallback(self, sender):
+    def newNameCallback(self, sender):
         pass
 
-    def newDocumentSizeCallback(self, sender):
+    def newSizeCallback(self, sender):
         pass
 
-    def newDocumentOkayCallback(self, sender):
+    def newOkayCallback(self, sender):
         self.model.new()
-        self.closeOpenDocumentDialog()
+        self.closeOpenDialog()
 
-    def newDocumentWidthCallback(self, sender):
+    def newWidthCallback(self, sender):
         pass
 
-    def newDocumentHeightCallback(self, sender):
+    def newHeightCallback(self, sender):
         pass
 
-    def newDocumentCancelCallback(self, sender):
+    def newCancelCallback(self, sender):
         pass

@@ -6,3 +6,9 @@ class Model(object):
 
     def new(self):
         pass
+
+    def openDocument(self, path):
+        pass
+
+    def closeDocument(self, documentId, save=False):
+        pass

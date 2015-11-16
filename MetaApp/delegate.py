@@ -67,8 +67,9 @@ class Delegate(NSObject, Dialogs, Paper, Auxiliary, Callbacks):
     saveDialogSize = (400, 100)
 
     startDialog = None
-    newDocumentDialog = None
-    saveDocumentDialog = None
+    openDialog = None
+    newDialog = None
+    saveDialog = None
 
     # Default values.
 
@@ -97,15 +98,11 @@ class Delegate(NSObject, Dialogs, Paper, Auxiliary, Callbacks):
         self.openStartWindow()
 
     def applicationShouldTerminate_(self, sender):
-        if reactor.running:
-            reactor.addSystemEventTrigger('after', 'shutdown', AppHelper.stopEventLoop)
-            reactor.stop()
-            return False
         return True
 
     # Interface Builder actions and dialogs.
 
-    def openDocumentWindow(self, document):
+    def openWindow(self, document):
         u"""
         Controls and paper view for a document.
         """
@@ -155,8 +152,8 @@ class Delegate(NSObject, Dialogs, Paper, Auxiliary, Callbacks):
 
     @objc.IBAction
     def new_(self, sender):
-        if self.newDocumentDialog is None:
-            self.openNewDocumentDialog()
+        if self.newDialog is None:
+            self.openNewDialog()
 
     @objc.IBAction
     def zoomIn_(self, sender):
@@ -179,10 +176,10 @@ class Delegate(NSObject, Dialogs, Paper, Auxiliary, Callbacks):
     @objc.IBAction
     def close_(self, sender):
         if not self.currentDocument is None and self.currentDocument.isDirty():
-            self.openSaveDocumentDialog()
+            self.openSaveDialog()
         else:
             self.closeDocument()
-            self.closeSaveDocumentDialog()
+            self.closeSaveDialog()
 
     @objc.IBAction
     def selectAll_(self, sender):
@@ -217,10 +214,6 @@ class Delegate(NSObject, Dialogs, Paper, Auxiliary, Callbacks):
         self.model.closeDocument(self.currentDocument.pid, save=save)
         self.windows[self.currentDocument.pid].close()
 
-    def closeSaveDocumentDialog(self):
-        self.saveDocumentDialog.close()
-        self.saveDocumentDialog = None
-
     def initDocument(self, added, document):
         u"""
         """
@@ -230,7 +223,7 @@ class Delegate(NSObject, Dialogs, Paper, Auxiliary, Callbacks):
             print 'Document %s, already open' % document.pid
         else:
             self.currentDocument = document
-            window = self.openDocumentWindow(document)
+            window = self.openWindow(document)
             self.windows[document.pid] = window
             self.redrawPaper = True
             window.paper.update()
