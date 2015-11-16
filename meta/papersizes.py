@@ -65,6 +65,7 @@ class PaperSizes(object):
 
     STANDARDS = [ISO_216_A, ISO_216_B, ISO_269_C, ISO_269_D, LETTER]
 
+    @classmethod
     def getSize(self, name, unit):
         u"""
         name:

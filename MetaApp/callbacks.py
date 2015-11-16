@@ -19,6 +19,13 @@ class Callbacks(object):
         pass
 
     def newDocumentOkayCallback(self, sender):
+        self.model.new()
+        self.closeOpenDocumentDialog()
+
+    def newDocumentWidthCallback(self, sender):
+        pass
+
+    def newDocumentHeightCallback(self, sender):
         pass
 
     def newDocumentCancelCallback(self, sender):

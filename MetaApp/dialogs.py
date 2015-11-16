@@ -78,20 +78,29 @@ class Dialogs(object):
         w.sizeComboBox = ComboBox((200, 40, 180, 20), values, callback=self.newDocumentSizeCallback)
         w.sizeComboBox.set(self.defaultPaperSize)
 
-        '''
-        w.dimensionsText = TextBox((20, 220, 220, 30), u"Dimensions (w×h in ㎝)")
-        w.dimensionBoxWidth = EditText((200, 220, 80, 30), callback=self.newDocumentWidthCallback)
-        w.dimensionBoxWidth.set(self.documentValues['documentWidth'])
-        w.dimensionsX = TextBox((285, 220, 10, 30), u"×")
-        w.dimensionBoxHeight = EditText((300, 220, 80, 30), callback=self.newDocumentHeightCallback)
-        w.dimensionBoxHeight.set(self.documentValues['documentHeight'])
-        '''
+        w.whText = TextBox((20, 60, 220, 20), u"w×h in ㎜")
 
-        w.okayButton = Button((240, 560, 60, 20), "Okay", callback=self.newDocumentOkayCallback)
-        w.okayButton.getNSButton().setEnabled_(False)
-        w.cancelButton = Button((320, 560, 60, 20), "Cancel",
+        width, height = PaperSizes.getSize(self.defaultPaperSize, 'mm')
+
+        w.width = EditText((200, 60, 80, 20), callback=self.newDocumentWidthCallback)
+        w.width.set(width)
+
+        w.x = TextBox((285, 60, 10, 20), u"×")
+        w.dimensionBoxHeight = EditText((300, 60, 80, 20), callback=self.newDocumentHeightCallback)
+        w.dimensionBoxHeight.set(height)
+
+        w.okayButton = Button((240, 260, 60, 20), "Okay", callback=self.newDocumentOkayCallback)
+        #w.okayButton.getNSButton().setEnabled_(False)
+        w.cancelButton = Button((320, 260, 60, 20), "Cancel",
                 callback=self.newDocumentCancelCallback)
         w.open()
+
+    def closeOpenDocumentDialog(self):
+        if not self.openDocumentDialog is None:
+            self.openDocumentDialog.close()
+            self.openDocumentDialog = None
+
+    # Save dialog.
 
     def openSaveDocumentDialog(self):
         if not self.saveDocumentDialog is None:
@@ -112,12 +121,10 @@ class Dialogs(object):
             callback=self.saveDocumentDoCallback)
         self.saveDocumentDialog.open()
 
-    def windowShouldCloseCallback(self, sender):
-        if sender == self.addDestinationDialog:
-            self.addDestinationDialog.close()
-            self.addDestinationDialog = None
-        else:
-            window = self.getCurrentWindow()
+    # Close.
 
-            if sender == window:
-                self.closeDocument_(sender)
+    def windowShouldCloseCallback(self, sender):
+        window = self.getCurrentWindow()
+
+        if sender == window:
+            self.closeDocument_(sender)
