@@ -1,14 +1,7 @@
-# -*- coding: UTF-8 -*-
-# -----------------------------------------------------------------------------
-#    Wayfinding appication.
-#    Copyright (c) 2014+ www.michielkauwatjoe.com
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 #
-#    Distribution by the MIT License.
-#
-# -----------------------------------------------------------------------------
-#
-#    dialogs.py
-#
+# https://github.com/michielkauwatjoe/Meta
 
 from vanilla import Window, TextBox, Button, EditText, ComboBox
 from AppKit import NSOKButton, NSOpenPanel

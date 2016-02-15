@@ -1,14 +1,7 @@
-# -*- coding: UTF-8 -*-
-# -----------------------------------------------------------------------------
-#    Meta appication.
-#    Copyright (c) 2014+ www.michielkauwatjoe.com
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 #
-#    Distribution by the MIT License.
-#
-# -----------------------------------------------------------------------------
-#
-#    delegate.py
-#
+# https://github.com/michielkauwatjoe/Meta
 
 # General Python libraries.
 
@@ -39,12 +32,6 @@ from meta.model import Model
 
 # Application object.
 
-'''
-from keysandmouse import KeysAndMouse
-from drawing import Drawing
-from clicked import Clicked
-from marquee import Marquee
-'''
 from paper import Paper
 from dialogs import Dialogs
 from aux import Auxiliary
@@ -95,6 +82,8 @@ class Delegate(NSObject, Dialogs, Paper, Auxiliary, Callbacks):
         self.path = os.path.join(os.path.dirname(__file__))
         self.resourcePath = NSBundle.mainBundle().resourcePath()
         self.documentFilesPath = self.resourcePath + '/en.lproj/'
+        path = '/Users/michiel/Projects/Meta/imftc/imftc.meta'
+        document = self.model.openDocument(path)
         self.openStartWindow()
 
     def applicationShouldTerminate_(self, sender):

@@ -1,14 +1,8 @@
-# -*- coding: UTF-8 -*-
-# -----------------------------------------------------------------------------
-#    Meta appication.
-#    Copyright (c) 2014+ www.michielkauwatjoe.com
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 #
-#    Distribution by the MIT License.
-#
-# -----------------------------------------------------------------------------
-#
-#    callbacks.py
-#
+# https://github.com/michielkauwatjoe/Meta
+
 
 class Callbacks(object):
 

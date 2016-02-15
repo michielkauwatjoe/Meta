@@ -1,14 +1,7 @@
-# -*- coding: UTF-8 -*-
-# -----------------------------------------------------------------------------
-#    Wayfinding appication.
-#    Copyright (c) 2014+  buro@petr.com, www.petr.com, www.mijksenaar.com
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 #
-#    Distribution by the MIT License.
-#
-# -----------------------------------------------------------------------------
-#
-#    Aux.py
-#
+# https://github.com/michielkauwatjoe/Meta
 
 import os
 import Image

@@ -1,14 +1,7 @@
-# -*- coding: UTF-8 -*-
-# -----------------------------------------------------------------------------
-#    Wayfinding appication.
-#    Copyright (c) 2014+ www.michielkauwatjoe.com
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 #
-#    Distribution by the MIT License.
-#
-# -----------------------------------------------------------------------------
-#
-#    paper.py
-#
+# https://github.com/michielkauwatjoe/Meta
 
 
 from AppKit import NSView, NSColor, NSMakeRect, NSRectFill, NSTrackingArea, NSSize, \
