@@ -1,14 +1,27 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+#
+# https://github.com/michielkauwatjoe/Meta
+
+from document import Document
+
 class Model(object):
-    pass
 
     def __init__(self):
-        pass
+        self.path = None
 
-    def new(self):
+    def newDocument(self):
         pass
 
     def openDocument(self, path):
-        pass
+        self.path = path
+
+        with open(path) as infile:
+            return json.load(infile)
 
     def closeDocument(self, documentId, save=False):
-        pass
+        # TODO: build j dict.
+
+        with open(self.path, 'w') as outfile:
+            json.dump(j, outfile)
+
