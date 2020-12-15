@@ -50,7 +50,6 @@ class SVG(object):
             '''
 
     def drawPath(self, path):
-
         return
         if command == "M":
             self.context.move_to(c[0], c[1])
@@ -62,7 +61,6 @@ class SVG(object):
             self.context.close_path();
 
     def magnetic(self, point):
-        u"""
-        Swaps point with point on border and central figure if within a certain threshold.
-        """
+        """Swaps point with point on border and central figure if within a
+        certain threshold."""
         return point
